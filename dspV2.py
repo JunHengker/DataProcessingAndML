@@ -20,5 +20,3 @@ print(df_light)
 print(df_sit)
 print(df_step)
 print(df_walk)
-
-print("Fall dataset \n")
