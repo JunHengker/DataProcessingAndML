@@ -1,3 +1,5 @@
+                                                            PART 1
+
 kalau mau ke ml harus setelah di filter, kita langsung machine learning patokan nya dari tabel label yang kita punya. pakai banyak filter kta tes satu satu man yang paling akurasi dari output ml nya.
 
 bandingin beberapa filter untuk mengidentifikasi freq yang menentukan posisis dia fall atau normal.
@@ -8,6 +10,12 @@ kita pisahin data dengan label a b c d, kita cari fiturnya masing masing, untuk 
 
 okei beres
 
+
+
+
+
+
+                                                            PART 2
 UPDATE
 
 INDIKATOR PAKEM untuk menentukan jatuh atau tidaknya seseorang.
@@ -27,6 +35,13 @@ untuk freq domain hanya untuk filter kurtosisnya pakai FIR, asumsi data belum cl
 sampling dlu cok di awal, periode 1/20 krna 20Hz
 
 saran fathan ambil 2 saja untuk perbandingan, jatoh aprah sm diem saja untuk mennjadi perbandingan. filter goyang" kecil yang ga diperlukan
+
+
+
+
+
+
+                                                            PART 3
 
 Light dataset ada movemennt tambhan jadi ga langsung jatuh makannya data dia punya deviasi yang tinggi banget dibanding yang lain. simpelnya sensornya ngambil range yang lebi gede karena movement tambahan. istilah kata jatuh nya kesereet. (teori liar, basedny dari kaggle itu sendiri).
 
@@ -54,3 +69,14 @@ kita ekstrak fitur dulu dataset kita, nah dari fitur itu kita jadikan patokan bu
 training itu kita bikin "inverse engine". machine learning paling gampang pakai KNN. kita ajarin tu pakai indikator kalo segini jatoh kalo sgini ga jatoh. kita kasih data baru terus dia identifikasi ini itu jatoh atau ini itu ga jatoh.
 
 MINUSNYA, ML ITU RIBET DAN TAKUTNYA GA KEBURU.
+
+
+                        RUMUS CUTOFF FREQ 
+                        (2 * fc) / fs
+                        ORDER = 8
+
+
+
+
+
+                                            PART 4 (ASISTENSI BU NAB PERTEMUAN TERAKHIR)
