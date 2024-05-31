@@ -2,7 +2,7 @@
 
 ## Acknowledgements
 
-I would like to express my deepest gratitude to **Gian Avila** for his invaluable assistance and contributions to this project. Gian played a crucial role in the development of the MATLAB scripts for filtering and feature extraction. `This project would not have been possible without his hard work and expertise`. Thank you, Gian, for your dedication and support. Your efforts are greatly appreciated and respected.
+I would like to express my gratitude to **Gian Avila** for his invaluable assistance and contributions to this project. Gian played a crucial role in the development of the MATLAB scripts for filtering and feature extraction. `This project would not have been possible without his hard work and expertise`. Thank you, Gian, for your dedication and support. Your efforts are greatly appreciated and respected.
  
 ## Description
 
