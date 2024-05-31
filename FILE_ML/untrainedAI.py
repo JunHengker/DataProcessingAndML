@@ -2,8 +2,11 @@ import pandas as pd
 import loadDataset as dataset
 import matplotlib.pyplot as plt
 import scatterPlot as scatter
+import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import classification_report
 
 # target 0 itu fall data, 1 itu sit data
 
@@ -80,10 +83,26 @@ X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_
 knn = KNeighborsClassifier(n_neighbors=3)
 knn.fit(X_train, y_train)
 
-outcome = knn.predict([[12,12.6,-9.72,2.88,2.17935936912226,1.4762653450929]])
-print(outcome) # 0 itu fall, 1 itu sit
+# outcome = knn.predict([[12,12.6,-9.72,2.88,2.17935936912226,1.4762653450929]])
+# print(outcome) # 0 itu fall, 1 itu sit
 
-if outcome == 0:
-    print("Fall")
-elif outcome == 1:
-    print("Sit")
+# if outcome == 0:
+#     print("Fall")
+# elif outcome == 1:
+#     print("Sit")
+
+
+# confusion matrix 
+y_pred = knn.predict(X_test)
+cm = confusion_matrix(y_test, y_pred)
+plt.figure(figsize=(7,5))
+sns.heatmap(cm, annot=True)
+plt.title('Confusion Matrix')
+plt.xlabel('Predicted')
+plt.ylabel('Truth')
+plt.show()
+
+#clasification report
+print(classification_report(y_test, y_pred))
+
+
