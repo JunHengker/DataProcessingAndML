@@ -1,5 +1,9 @@
 # Fall vs Normal Activities Feature Extraction and Classification
 
+## Acknowledgements
+
+I would like to express my deepest gratitude to **Gian Avila** for his invaluable assistance and contributions to this project. Gian played a crucial role in the development of the MATLAB scripts for filtering and feature extraction. `This project would not have been possible without his hard work and expertise`. Thank you, Gian, for your dedication and support. Your efforts are greatly appreciated and respected.
+ 
 ## Description
 
 This repository contains the code and data for my final exam project, which focuses on machine learning and feature extraction from a dataset that distinguishes between fall and normal activities. The primary goal of this project is to develop and evaluate a machine learning model using the K-Nearest Neighbors (KNN) algorithm to accurately classify activities as either falls or normal movements based on extracted features.
@@ -29,3 +33,4 @@ The project utilizes Python for implementing the KNN algorithm and MATLAB for fi
 - Scikit-learn
 - MATLAB
 - MATPLOTLIB
+  
