@@ -8,7 +8,7 @@ The project utilizes Python for implementing the KNN algorithm and MATLAB for fi
 
 ## Contents
 
-- `datasetFalls.csv/`: Contains the raw dataset that needed to be flatten and extracted for training and testing the machine learning models.
+- `datasetFalls.csv`: Contains the raw dataset that needed to be flatten and extracted for training and testing the machine learning models.
 - `FILE_MATLAB/`: Consist of two MATLAB file for extracting feature (already filtered and flatten), Plotting, and more (just to fullfiled the final exam rubrik).
 - `FILE_ML/`: Python scripts for making custom dataset from csv, scatter plot, machine learning model, confusion matrix, classification report (sorry i wrote it in one file, except dataset and scatter plot).
 - `README.md`: This file, providing an overview of the project.
