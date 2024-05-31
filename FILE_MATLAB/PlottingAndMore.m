@@ -58,9 +58,9 @@ data = readtable(file);
 df_fall = data(strcmp(data.label, 'fall'), :);
 df_sit = data(strcmp(data.label, 'sit'), :);
 
-sample_size = 220;
+sample_size = 300; % batas akhir kurang 100
 
-opening = 41;
+opening = 21; % batas awal + 20
 closing  = sample_size;
 
 sampled_fall_yAcc = df_fall.yAcc(opening:closing);
@@ -141,66 +141,124 @@ xlabel('frequency/Hz');
 ylabel('amplitude');
 title('Frequency-domain');
 
-%% plotting 2 sinyal before (ga peerlu)
+%% low pass Butter-worth filter
 
-% Subplot for yAcc data
+% fc=2; %the frequencies of sin signals that needs filtered
+% N=48; %define the order of filter
+% 
+% b=fir1(N, (2*fc/fs)); % use the firl function to design a filter
+
+% figure;
+% [h,f]=freqz(b,1,512);
+% plot(f*fs/(2*pi),20*log10(abs(h)))
+% xlabel('frequency/Hz');
+% ylabel('gain/dB');
+% title('The gain response of lowpass butterworth filter');
+
+fc = 5; % Cut-off frequency
+
+% Design Butterworth low-pass filter of order 4
+[b, a] = butter(4, fc/(fs/2));
+
+% Compute the frequency response of the filter
+[h, f] = freqz(b, a, 512, fs);
+
+% Plot the gain response in dB
 figure;
-subplot(2,1,1);
-% tugas lu bikin duration 0 - 25 detik
-plot(duration, sampled_sit_yAcc);
-title('Sit - yAcc Accelerometer Data');
+plot(f, 20*log10(abs(h)));
+xlabel('Frequency (Hz)');
+ylabel('Gain (dB)');
+title('The Gain Response of Low-pass Butterworth Filter');
+grid on;
+
+
+%% apply filter to current signal to dataset
+filtered_fall_yAcc = filtfilt(b, a, sampled_fall_yAcc);
+filtered_sit_yAcc = filtfilt(b, a, sampled_sit_yAcc);
+
+% Duration calculation for time domain
+t = (0:(closing - opening)) / fs;
+
+% Plot sinyal sebelum dan sesudah (gabungan)
+t = (0:(closing - opening)) / fs;
+figure;
+subplot(2, 1, 1);
+plot(t, sampled_fall_yAcc, 'r');
+hold on;
+plot(t, filtered_fall_yAcc, 'b');
+title('Fall - yAcc Accelerometer Data (Before and After Filtering)');
 xlabel('Time (seconds)');
 ylabel('Acceleration (m/s^2)');
-legend;
+legend('Original', 'Filtered');
+subplot(2, 1, 2);
+plot(t, sampled_sit_yAcc, 'r');
+hold on;
+plot(t, filtered_sit_yAcc, 'b');
+title('Sit - yAcc Accelerometer Data (Before and After Filtering)');
+xlabel('Time (seconds)');
+ylabel('Acceleration (m/s^2)');
+legend('Original', 'Filtered');
 
+% Perform FFT untuk Freq domain 
+% Fall dataset
+FsFallBefore=fft(sampled_fall_yAcc,512);
+AFsFallBefore=abs(FsFallBefore); % Untuk PLOT
 
-% Function to perform FFT and plot results
-Fs=fft(sampled_sit_yAcc,512);
-AFs=abs(Fs);
+FsFallAfter=fft(filtered_fall_yAcc,512);
+AFsFallAfter=abs(FsFallAfter);
+
+% Sit dataset
+FsSitBefore=fft(sampled_sit_yAcc,512);
+AFsSitBefore=abs(FsSitBefore);
+
+FsSitAfter=fft(filtered_sit_yAcc,512);
+AFsSitAfter=abs(FsSitAfter);
+
 f=fs/512*(0:255);
 
-subplot(2,1,2);
-plot(f,AFs(1:256));
+figure;
+subplot(2,1,1);
+plot(f,AFsFallBefore(1:256));
+hold on;
+plot(f,AFsFallAfter(1:256));
 xlabel('frequency/Hz');
 ylabel('amplitude');
-title('Frequency-domain');
+title('Fall Frequency-domain');
+legend('Original', 'Filtered');
 
 
-
-%% low pass filter
-
-fc=2; %the frequencies of sin signals that needs filtered
-N=48; %define the order of filter
-
-b=fir1(N, (2*fc/fs)); % use the firl function to design a filter
-
-figure;
-[h,f]=freqz(b,1,512);
-plot(f*fs/(2*pi),20*log10(abs(h)))
+subplot(2,1,2);
+plot(f,AFsSitBefore(1:256));
+hold on;
+plot(f,AFsSitAfter(1:256));
 xlabel('frequency/Hz');
-ylabel('gain/dB');
-title('The gain response of lowpass filter');
+ylabel('amplitude');
+title('Sit Frequency-domain');
+legend('Original', 'Filtered');
 
 
-%% apply filter to current signal to sit dataset
-filtered_signalSit=filter(b,1,sampled_sit_yAcc);%use filter function to filter
+%% Plot satuan yang misah
 
-% Subplot for yAcc data
+% Plot sinyal yang telah difilter saja
 figure;
-subplot(2,1,1);
-% tugas lu bikin duration 0 - 25 detik
-plot(duration, filtered_signalSit);
-title('Sit - yAcc Accelerometer Data');
+subplot(2, 2, 1)
+plot(t, filtered_fall_yAcc);
+title('Filtered Fall - yAcc Accelerometer Data');
 xlabel('Time (seconds)');
 ylabel('Acceleration (m/s^2)');
-legend;
 
+subplot(2, 2, 3)
+plot(t, filtered_sit_yAcc);
+title('Filtered Sit - yAcc Accelerometer Data');
+xlabel('Time (seconds)');
+ylabel('Acceleration (m/s^2)');
 
 % Function to perform FFT and plot results
-Fs=fft(filtered_signalSit,512);
+Fs=fft(filtered_fall_yAcc,512);
 AFs=abs(Fs);
 f=fs/512*(0:255);
 
+figure;
 subplot(2,1,2);
 plot(f,AFs(1:256));
 xlabel('frequency/Hz');
